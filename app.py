@@ -1,7 +1,6 @@
 import os
 import sys
 import json
-import random
 
 import requests
 from flask import Flask, request
@@ -40,7 +39,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                    send_message(sender_id, choose_message(message_text))
+                    send_message(sender_id, "roger that!")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -52,17 +51,6 @@ def webhook():
                     pass
 
     return "ok", 200
-
-
-
-def choose_message(message):
-	receivedMessage = message.toLower().split()
-	for word in receivedMessage:
-		if "who" in receivedMessage && "you" in receivedMessage:
-			return "Hello! I am Newsbot, a Facebook Messenger bot coded by Shawn. My purpose is to provide you with local and world news on demand."
-	return "I don't understand what you are saying. Try asking who I am."
-
-		
 
 
 def send_message(recipient_id, message_text):
