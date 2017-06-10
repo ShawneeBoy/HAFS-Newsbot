@@ -59,8 +59,9 @@ def chooseMessage(message):
 		return chooseGreeting(message)
 	if message.lower() == "who are you?" or message.lower() == "who are you":
 		return "I am HAFS Newsbot, coded by Shawn Lee. I am designed to provide you with news, but I can't do that as of now."
-	if message.lower() in ["fuck", "shit", "fucking"]:
-		return random.choice(["Hey! Don't swear!", "You know, it isn't okay to swear..."])
+	for word in message.lower():
+		if word in ["fuck", "shit", "fucking"]:
+			return random.choice(["Hey! Don't swear!", "You know, it isn't okay to swear..."])
 	
 	return random.choice(["I don't understand what you're saying.","Huh?","What do you mean?", "I can't understand much as of now. Try saying hi!"])
 
