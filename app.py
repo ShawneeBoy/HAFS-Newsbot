@@ -39,8 +39,8 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
-
-                    send_message(sender_id, chooseMessage(message_text))
+                    response = chooseMessage(message_text)
+                    send_message(sender_id, response)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -57,7 +57,7 @@ def chooseMessage(message):
 	GREETINGS_KEYWORDS = ["hello","hi","hey","sup"]
 	GREETINGS_RESPONSES = ["Hello!","Hi!","What's up?"]
 	for word in message.words:
-		if word.lower() in GREETINGS_KEYWORDS
+		if word.lower() in GREETINGS_KEYWORDS:
 			return random.choice(GREETINGS_RESPONSES)
 	return random.choice(["I don't understand what you're saying.","Huh?","What do you mean?"])
 
