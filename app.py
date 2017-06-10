@@ -1,13 +1,14 @@
-
+#-*- coding: utf-8 -*-
 import os
 import sys
 import json
 import random
 import string
-
 import requests
 from flask import Flask, request
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
 
