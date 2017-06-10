@@ -59,7 +59,7 @@ def chooseMessage(message):
 		return chooseGreeting(message)
 	if message.lower() == "who are you?" or message.lower() == "who are you":
 		return "I am HAFS Newsbot, coded by Shawn Lee. I am designed to provide you with news, but I can't do that as of now."
-	for word in message.lower():
+	for word in message.lower().split():
 		if word in ["fuck", "shit", "fucking"]:
 			return random.choice(["Hey! Don't swear!", "You know, it isn't okay to swear..."])
 	
