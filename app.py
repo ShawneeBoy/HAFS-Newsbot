@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+
 import os
 import sys
 import json
@@ -7,8 +7,6 @@ import string
 import requests
 from flask import Flask, request
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
 
@@ -60,24 +58,21 @@ def webhook():
 def chooseMessage(message):
 	if chooseGreeting(message):
 		return chooseGreeting(message)
-	if message.lower().translate(string.maketrans('','',string.punctuation)) == "who are you" or message.lower().translate(string.maketrans('','',string.punctuation)) == "what are you":
+	if message.lower().translate(None, string.punctuation) == "who are you" or message.lower().translate(None, string.punctuation) == "what are you":
 		return "I am HAFS Newsbot, coded by Shawn Lee. I am designed to provide you with news, but I can't do that as of now."
-	if message.lower().translate(string.maketrans('','',string.punctuation)) in ["fuck", "shit", "fucking"]:
+	if message.lower().translate(None, string.punctuation) in ["fuck", "shit", "fucking"]:
 		return random.choice(["Hey! Don't swear!", "You know, it isn't okay to swear..."])
-
 	
 	return random.choice(["I don't understand what you're saying.","Huh?","What do you mean?"])
 
 def chooseGreeting(message):
 	GREETINGS_KEYWORDS = ["hello","hi","hey","sup","whats up","good morning","yo"]
 	GREETINGS_RESPONSES = ["Hello!","Hi!","What's up?","How's it going?","Hey!"]
-	GREETINGS_KEYWORDS_K = ["안녕", "안녕하세요", "하이", "ㅎㅇ"]
-	GREETINGS_RESPONSES_K = ["안녕하세요!"]
-	for word in message.split():
-		if message.lower() in GREETINGS_KEYWORDS:
+
+	for word in message.lower().translate(None, string.punctuation).split():
+		if word in GREETINGS_KEYWORDS:
 			return random.choice(GREETINGS_RESPONSES)
-	if message.translate(string.maketrans('','',string.punctuation)) in GREETINGS_KEYWORDS_K:
-		return random.choice(GREETINGS_RESPONSES_K)
+
 	return False
 
 
