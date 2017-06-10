@@ -56,7 +56,7 @@ def webhook():
 def chooseMessage(message):
 	GREETINGS_KEYWORDS = ["hello","hi","hey","sup"]
 	GREETINGS_RESPONSES = ["Hello!","Hi!","What's up?"]
-	for word in message.words:
+	for word in message.split():
 		if word.lower() in GREETINGS_KEYWORDS:
 			return random.choice(GREETINGS_RESPONSES)
 	return random.choice(["I don't understand what you're saying.","Huh?","What do you mean?"])
