@@ -60,9 +60,9 @@ def webhook():
 def chooseMessage(message):
 	if chooseGreeting(message):
 		return chooseGreeting(message)
-	if message.lower().translate(str.maketrans('','',string.punctuation)) == "who are you" or message.lower().translate(str.maketrans('','',string.punctuation)) == "what are you":
+	if message.lower().translate(string.maketrans('','',string.punctuation)) == "who are you" or message.lower().translate(string.maketrans('','',string.punctuation)) == "what are you":
 		return "I am HAFS Newsbot, coded by Shawn Lee. I am designed to provide you with news, but I can't do that as of now."
-	if message.lower().translate(str.maketrans('','',string.punctuation)) in ["fuck", "shit", "fucking"]:
+	if message.lower().translate(string.maketrans('','',string.punctuation)) in ["fuck", "shit", "fucking"]:
 		return random.choice(["Hey! Don't swear!", "You know, it isn't okay to swear..."])
 
 	
@@ -76,7 +76,7 @@ def chooseGreeting(message):
 	for word in message.split():
 		if message.lower() in GREETINGS_KEYWORDS:
 			return random.choice(GREETINGS_RESPONSES)
-	if message.translate(str.maketrans('','',string.punctuation)) in GREETINGS_KEYWORDS_K:
+	if message.translate(string.maketrans('','',string.punctuation)) in GREETINGS_KEYWORDS_K:
 		return random.choice(GREETINGS_RESPONSES_K)
 	return False
 
