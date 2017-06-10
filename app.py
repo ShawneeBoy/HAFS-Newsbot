@@ -62,10 +62,10 @@ def chooseMessage(message):
 	if message.lower() in ["fuck", "shit", "fucking"]:
 		return random.choice(["Hey! Don't swear!", "You know, it isn't okay to swear..."])
 	
-	return random.choice(["I don't understand what you're saying.","Huh?","What do you mean?"])
+	return random.choice(["I don't understand what you're saying.","Huh?","What do you mean?", "I can't understand much as of now. Try saying hi!"])
 
 def chooseGreeting(message):
-	GREETINGS_KEYWORDS = ["hello","hi","hey","sup","whats up","good morning","yo"]
+	GREETINGS_KEYWORDS = ["hello","hi","hey","sup","whats up","good morning","yo", "hi!"]
 	GREETINGS_RESPONSES = ["Hello!","Hi!","What's up?","How's it going?","Hey!"]
 
 	for word in message.lower().split():
