@@ -1,15 +1,13 @@
-#*- coding: utf-8 -*-
+
 import os
 import sys
 import json
 import random
-
+import string
 
 import requests
 from flask import Flask, request
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
 
@@ -72,13 +70,13 @@ def chooseMessage(message):
 def chooseGreeting(message):
 	GREETINGS_KEYWORDS = ["hello","hi","hey","sup","whats up","good morning","yo"]
 	GREETINGS_RESPONSES = ["Hello!","Hi!","What's up?","How's it going?","Hey!"]
-	GREETINGS_KEYWORDS_K = ["안녕", "안녕하세요", "하이", "ㅎㅇ"]
-	GREETINGS_RESPONSES_K = ["안녕하세요!"]
-	#for word in message.split():
-	if message.lower().translate(None, message.punctuation) in GREETINGS_KEYWORDS:
-		return random.choice(GREETINGS_RESPONSES)
-	if message.translate(None, message.punctuation) in GREETINGS_KEYWORDS_K:
-		return random.choice(GREETINGS_RESPONSES_K)
+	#GREETINGS_KEYWORDS_K = ["안녕", "안녕하세요", "하이", "ㅎㅇ"]
+	#GREETINGS_RESPONSES_K = ["안녕하세요!"]
+	for word in message.split():
+		if message.lower() in GREETINGS_KEYWORDS:
+			return random.choice(GREETINGS_RESPONSES)
+	#if message.translate(None, message.punctuation) in GREETINGS_KEYWORDS_K:
+	#	return random.choice(GREETINGS_RESPONSES_K)
 	return False
 
 
