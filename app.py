@@ -47,9 +47,9 @@ def webhook():
                     if "sticker_id" in messaging_event["message"]:		#if the message contails a sticker
                     	stickerid = messaging_event["message"]["sticker_id"]
                     	if stickerid == 369239263222822 or stickerid == 369239383222810 or stickerid == 369239343222814:
-                    		send_message(sender_id, "Thanks for the like!")
+                    		send_message(sender_id, random.choice(["Thanks for the like!","I like you too!","I like that like!"]))
                     	else:
-                    		send_message(sender_id, "You're a good sticker picker!")
+                    		send_message(sender_id, random.choice(["You're a good sticker picker!","Nice sticker!","Stickers and stones may break my bones..."]))
 
 
                 if messaging_event.get("delivery"):  # delivery confirmation
@@ -81,6 +81,8 @@ def chooseGreeting(message):
 	for word in message.lower().split():
 		if word in GREETINGS_KEYWORDS:
 			return random.choice(GREETINGS_RESPONSES)
+	if message.lower() == "how are you?" or message.lower() == "how are you":
+		return "I'm doing fine, thank you!"
 
 	return False
 
