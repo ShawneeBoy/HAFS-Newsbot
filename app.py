@@ -40,12 +40,16 @@ def webhook():
 
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    if "text" in messaging_event["message"]:
+                    if "text" in messaging_event["message"]:			# if the message contains text
                     	message_text = messaging_event["message"]["text"]  # the message's text
                     	response = chooseMessage(message_text)
                     	send_message(sender_id, response)
-                    if "sticker_id" in messaging_event["message"]:
-                    	send_message(sender_id, "Thanks for the like!")
+                    if "sticker_id" in messaging_event["message"]:		#if the message contails a sticker
+                    	stickerid = messaging_event["message"]["sticker_id"]
+                    	if stickerid == 369239263222822 or stickerid == 369239383222810 or stickerid == 369239343222814:
+                    		send_message(sender_id, "Thanks for the like!")
+                    	else:
+                    		send_message(sender_id, "You're a good sticker picker!")
 
 
                 if messaging_event.get("delivery"):  # delivery confirmation
