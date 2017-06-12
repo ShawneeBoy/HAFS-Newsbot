@@ -338,6 +338,56 @@ def send_news_message(recipient_id, newsType):
               "url": data["articles"][4]["url"],
               "title": "Read more"
             }],
+       	  },{
+          	"title": data["articles"][5]["title"],
+            "subtitle": data["articles"][5]["description"],
+            "item_url": data["articles"][5]["url"],     
+            "image_url": data["articles"][5]["urlToImage"],
+            "buttons": [{
+              "type": "web_url",
+              "url": data["articles"][5]["url"],
+              "title": "Read more"
+            }],
+       	  },{
+          	"title": data["articles"][6]["title"],
+            "subtitle": data["articles"][6]["description"],
+            "item_url": data["articles"][6]["url"],     
+            "image_url": data["articles"][6]["urlToImage"],
+            "buttons": [{
+              "type": "web_url",
+              "url": data["articles"][6]["url"],
+              "title": "Read more"
+            }],
+       	  },{
+          	"title": data["articles"][7]["title"],
+            "subtitle": data["articles"][7]["description"],
+            "item_url": data["articles"][7]["url"],     
+            "image_url": data["articles"][7]["urlToImage"],
+            "buttons": [{
+              "type": "web_url",
+              "url": data["articles"][7]["url"],
+              "title": "Read more"
+            }],
+       	  },{
+          	"title": data["articles"][8]["title"],
+            "subtitle": data["articles"][8]["description"],
+            "item_url": data["articles"][8]["url"],     
+            "image_url": data["articles"][8]["urlToImage"],
+            "buttons": [{
+              "type": "web_url",
+              "url": data["articles"][8]["url"],
+              "title": "Read more"
+            }],
+       	  },{
+          	"title": data["articles"][9]["title"],
+            "subtitle": data["articles"][9]["description"],
+            "item_url": data["articles"][9]["url"],     
+            "image_url": data["articles"][9]["urlToImage"],
+            "buttons": [{
+              "type": "web_url",
+              "url": data["articles"][9]["url"],
+              "title": "Read more"
+            }],
        	  }]
           	
         }
