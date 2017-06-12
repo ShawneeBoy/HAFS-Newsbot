@@ -166,31 +166,31 @@ def send_quick_reply(recipient_id):
           		"content_type":"text",
           		"title":"CNN",
           		"payload":"choice_cnn",
-          		"image_url":"http://petersfantastichats.com/img/red.png"
+          		"image_url":"http://i.cdn.cnn.com/cnn/.e/img/3.0/global/misc/apple-touch-icon.png"
         	},
         	{
           		"content_type":"text",
           		"title":"The New York Times",
           		"payload":"choice_nyt",
-          		"image_url":"http://petersfantastichats.com/img/red.png"
+          		"image_url":"https://mobile.nytimes.com/vi-assets/apple-touch-icon-319373aaf4524d94d38aa599c56b8655.png"
         	},
         	{
           		"content_type":"text",
           		"title":"ESPN",
           		"payload":"choice_espn",
-          		"image_url":"http://petersfantastichats.com/img/red.png"
+          		"image_url":"http://a.espncdn.com/wireless/mw5/r1/images/bookmark-icons/espn_icon-152x152.min.png"
         	},
         	{
           		"content_type":"text",
           		"title":"Time",
           		"payload":"choice_time",
-          		"image_url":"http://petersfantastichats.com/img/red.png"
+          		"image_url":"http://s0.wp.com/wp-content/themes/vip/time2014/img/time-touch_icon_120.png"
         	},
         	{
           		"content_type":"text",
           		"title":"National Geographic",
           		"payload":"choice_natgeo",
-          		"image_url":"http://petersfantastichats.com/img/red.png"
+          		"image_url":"http://images.nationalgeographic.com/wpf/sites/common/i/presentation/NGLogo560x430-cb1343821768.png"
         	}
       		]
         }
