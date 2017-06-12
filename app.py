@@ -63,7 +63,7 @@ def webhook():
 
 def processMessage(message_text, sender_id):
 	if message_text.lower() == "news":
-        send_quick_reply(sender_id)
+		send_quick_reply(sender_id)
     elif message_text.lower() == "cnn":
     	send_news_message(sender_id,"cnn")
 	elif message_text.lower() == "the new york times":
