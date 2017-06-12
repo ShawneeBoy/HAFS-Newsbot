@@ -67,19 +67,19 @@ def processMessage(message_text, sender_id):
     elif message_text.lower() == "cnn":
     	send_news_message(sender_id,"cnn")
 	elif message_text.lower() == "the new york times":
-    	send_news_message(sender_id,"nyt")
+		send_news_message(sender_id,"nyt")
 	elif message_text.lower() == "espn":
-    	send_news_message(sender_id,"espn")
+		send_news_message(sender_id,"espn")
     elif message_text.lower() == "time":
     	send_news_message(sender_id,"time")
     elif message_text.lower() == "national geographic":
     	send_news_message(sender_id,"natgeo")
     elif message_text.lower() == "help":
-        send_message(sender_id, "Commands\n\n\tnews - Shows major news sites.\n\nMore commands to be added!")
+    	send_message(sender_id, "Commands\n\n\tnews - Shows major news sites.\n\nMore commands to be added!")
     else:
-        response = defaultMessage(message_text)
-        send_message(sender_id, response)
-        send_message(sender_id, "Type \"help\" for help on commands!")
+    	response = defaultMessage(message_text)
+    	send_message(sender_id, response)
+    	send_message(sender_id, "Type \"help\" for help on commands!")
 
 
 
