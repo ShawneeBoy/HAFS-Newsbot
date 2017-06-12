@@ -43,11 +43,14 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     if "text" in messaging_event["message"]:			# if the message contains text
                     	message_text = messaging_event["message"]["text"]  # the message's text
-                    	if message_text == "cnn":
+                    	if message_text.lower() == "news":
                     		send_news_message(sender_id)
+                    	elif message_text.lower() == "help":
+                    		send_message(sender_id, "Commands\n\nnews - show major news sites.\n\nMore commands to be added!")
                     	else:
                     		response = chooseMessage(message_text)
                     		send_message(sender_id, response)
+                    		send_message(sender_id, "Type \"help\" for help on commands!")
                     	
                     if "sticker_id" in messaging_event["message"]:		#if the message contains a sticker
                     	stickerid = messaging_event["message"]["sticker_id"]
@@ -69,10 +72,12 @@ def webhook():
     return "ok", 200
 
 def chooseMessage(message):
+
 	if chooseGreeting(message):
 		return chooseGreeting(message)
 	if message.lower() == "who are you?" or message.lower() == "who are you":
-		return "I am HAFS Newsbot, coded by Shawn Lee. I am designed to provide you with news, but I can't do that as of now."
+		return "I am HAFS Newsbot, coded by Shawn Lee. I am designed to provide you with news."
+
 	for word in message.lower().split():
 		if word in ["fuck", "shit", "fucking"]:
 			return random.choice(["Hey! Don't swear!", "You know, it isn't okay to swear..."])
