@@ -260,7 +260,7 @@ def send_news_message(recipient_id, newsType):
     elif newsType == "natgeo":
     	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=national-geographic&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
     elif newsType == "bbc":
-    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=bbc&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
     elif newsType == "reddit":
     	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=reddit-r-all&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
     elif newsType == "buzzfeed":
