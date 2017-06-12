@@ -41,10 +41,11 @@ def webhook():
 
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
+
                     if "text" in messaging_event["message"]:			# if the message contains text
                     	message_text = messaging_event["message"]["text"]  # the message's text
                     	if message_text.lower() == "news":
-                    		send_news_message(sender_id)
+                    		send_quick_reply(sender_id)
                     	elif message_text.lower() == "help":
                     		send_message(sender_id, "Commands\n\n\tnews - Shows major news sites.\n\nMore commands to be added!")
                     	else:
@@ -99,13 +100,13 @@ def chooseGreeting(message):
 	return False
 
 def send_news_message(recipient_id):
-	send_message(recipient_id, "As of now, Newsbot only supports CNN. More sites coming soon!")
-	send_CNN_message(recipient_id)
+	send_quick_reply(recipient_id)
 
 
 def send_message(recipient_id, message_text):
 
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
+
 
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
@@ -126,11 +127,55 @@ def send_message(recipient_id, message_text):
         log(r.status_code)
         log(r.text)
 
-def send_CNN_message(recipient_id):
+def send_quick_reply(recipient_id):
 
-    log("sending CNN message to {recipient}".format(recipient=recipient_id))
+    log("sending quick replies to {recipient}".format(recipient=recipient_id))
+
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": recipient_id
+        },
+        "message": {
+            "text": "What news provider do you want?",
+      		"quick_replies" : [
+        	{
+          		"content_type":"text",
+          		"title":"CNN",
+          		"payload":"choice_cnn"
+          		"image_url":"http://petersfantastichats.com/img/red.png"
+        	},
+        	{
+          		"content_type":"text",
+          		"title":"The New York Times",
+          		"payload":"choice_nyt"
+          		"image_url":"http://petersfantastichats.com/img/red.png"
+        	},
+        	{
+          		"content_type":"text",
+          		"title":"ESPN",
+          		"payload":"choice_espn"
+          		"image_url":"http://petersfantastichats.com/img/red.png"
+        	}
+      		]
+        }
+    })
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
+
+def send_newsblock_message(recipient_id, newsType):
+
+    log("sending news message to {recipient}".format(recipient=recipient_id))
     response = urllib2.urlopen('https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
-    cnn_data = json.load(response)
+    
+    data = json.load(response)
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
     }
@@ -147,30 +192,30 @@ def send_CNN_message(recipient_id):
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": cnn_data["articles"][0]["title"],
-            "subtitle": cnn_data["articles"][0]["description"],
-            "item_url": cnn_data["articles"][0]["url"],     
-            "image_url": cnn_data["articles"][0]["urlToImage"],
+            "title": data["articles"][0]["title"],
+            "subtitle": data["articles"][0]["description"],
+            "item_url": data["articles"][0]["url"],     
+            "image_url": data["articles"][0]["urlToImage"],
             "buttons": [{
               "type": "web_url",
-              "url": cnn_data["articles"][0]["url"],
+              "url": data["articles"][0]["url"],
               "title": "Read more"
             }],
           },{
-            "title": cnn_data["articles"][1]["title"],
-            "subtitle": cnn_data["articles"][1]["description"],
-            "item_url": cnn_data["articles"][1]["url"],     
-            "image_url": cnn_data["articles"][1]["urlToImage"],
+            "title": data["articles"][1]["title"],
+            "subtitle": data["articles"][1]["description"],
+            "item_url": data["articles"][1]["url"],     
+            "image_url": data["articles"][1]["urlToImage"],
             "buttons": [{
               "type": "web_url",
-              "url": cnn_data["articles"][1]["url"],
+              "url": data["articles"][1]["url"],
               "title": "Read more"
             }],
           },{
-          	"title": cnn_data["articles"][2]["title"],
-            "subtitle": cnn_data["articles"][2]["description"],
-            "item_url": cnn_data["articles"][2]["url"],     
-            "image_url": cnn_data["articles"][2]["urlToImage"],
+          	"title": data["articles"][2]["title"],
+            "subtitle": data["articles"][2]["description"],
+            "item_url": data["articles"][2]["url"],     
+            "image_url": data["articles"][2]["urlToImage"],
             "buttons": [{
               "type": "web_url",
               "url": cnn_data["articles"][2]["url"],
