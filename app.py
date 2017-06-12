@@ -54,11 +54,7 @@ def webhook():
                     	
                     if "sticker_id" in messaging_event["message"]:		#if the message contains a sticker
                     	stickerid = messaging_event["message"]["sticker_id"]
-                    	if stickerid == 369239263222822 or stickerid == 369239383222810 or stickerid == 369239343222814:
-                    		send_message(sender_id, random.choice(["Thanks for the like!","I like you too!","I like that like!"]))
-                    	else:
-                    		send_message(sender_id, random.choice(["You're a good sticker picker!","Nice sticker!","Stickers and stones may break my bones..."]))
-
+                    	replySticker(sender_id,stickerid)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -70,6 +66,12 @@ def webhook():
                     pass
 
     return "ok", 200
+
+def replySticker(sender_id,stickerid):
+	if stickerid == 369239263222822 or stickerid == 369239383222810 or stickerid == 369239343222814:
+		send_message(sender_id, random.choice(["Thanks for the like!","I like you too!","I like that like!"]))
+	else:
+		send_message(sender_id, random.choice(["You're a good sticker picker!","Nice sticker!","Stickers and stones may break my bones..."]))
 
 def chooseMessage(message):
 
@@ -96,7 +98,10 @@ def chooseGreeting(message):
 
 	return False
 
-
+def send_news_message(recipient_id):
+	send_message(recipient_id, "As of now, Newsbot only supports CNN. More sites coming soon!")
+	send_CNN_message(recipient_id)
+	
 
 def send_message(recipient_id, message_text):
 
@@ -121,9 +126,9 @@ def send_message(recipient_id, message_text):
         log(r.status_code)
         log(r.text)
 
-def send_news_message(recipient_id):
+def send_CNN_message(recipient_id):
 
-    log("sending news message to {recipient}".format(recipient=recipient_id))
+    log("sending CNN message to {recipient}".format(recipient=recipient_id))
     response = urllib2.urlopen('https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
     cnn_data = json.load(response)
     params = {
@@ -148,20 +153,88 @@ def send_news_message(recipient_id):
             "image_url": cnn_data["articles"][0]["urlToImage"],
             "buttons": [{
               "type": "web_url",
-              "url": "https://cnn.com",
-              "title": "Open CNN"
+              "url": cnn_data["articles"][0]["url"],
+              "title": "Read more"
             }],
           },{
-            "title": "Joongang News",
-            "subtitle": "Today's Korea news",
-            "item_url": "http://joongang.joins.com/",               
-            "image_url": "http://images.joins.com/facebook/v_logo_j_300300.png",
+            "title": cnn_data["articles"][1]["title"],
+            "subtitle": cnn_data["articles"][1]["description"],
+            "item_url": cnn_data["articles"][1]["url"],     
+            "image_url": cnn_data["articles"][1]["urlToImage"],
             "buttons": [{
               "type": "web_url",
-              "url": "https://joongang.joins.com/",
-              "title": "Open Joongang News"
+              "url": cnn_data["articles"][1]["url"],
+              "title": "Read more"
             }],
           }]
+          "title": cnn_data["articles"][2]["title"],
+            "subtitle": cnn_data["articles"][2]["description"],
+            "item_url": cnn_data["articles"][2]["url"],     
+            "image_url": cnn_data["articles"][2]["urlToImage"],
+            "buttons": [{
+              "type": "web_url",
+              "url": cnn_data["articles"][2]["url"],
+              "title": "Read more"
+            }],
+        }
+      }
+        }
+    })
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
+
+def send_CNN_message(recipient_id):
+
+    log("sending CNN message to {recipient}".format(recipient=recipient_id))
+    response = urllib2.urlopen('https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+    cnn_data = json.load(response)
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": recipient_id
+        },
+        "message": {
+            "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": cnn_data["articles"][0]["title"],
+            "subtitle": cnn_data["articles"][0]["description"],
+            "item_url": cnn_data["articles"][0]["url"],     
+            "image_url": cnn_data["articles"][0]["urlToImage"],
+            "buttons": [{
+              "type": "web_url",
+              "url": cnn_data["articles"][0]["url"],
+              "title": "Read more"
+            }],
+          },{
+            "title": cnn_data["articles"][1]["title"],
+            "subtitle": cnn_data["articles"][1]["description"],
+            "item_url": cnn_data["articles"][1]["url"],     
+            "image_url": cnn_data["articles"][1]["urlToImage"],
+            "buttons": [{
+              "type": "web_url",
+              "url": cnn_data["articles"][1]["url"],
+              "title": "Read more"
+            }],
+          }]
+          "title": cnn_data["articles"][2]["title"],
+            "subtitle": cnn_data["articles"][2]["description"],
+            "item_url": cnn_data["articles"][2]["url"],     
+            "image_url": cnn_data["articles"][2]["urlToImage"],
+            "buttons": [{
+              "type": "web_url",
+              "url": cnn_data["articles"][2]["url"],
+              "title": "Read more"
+            }],
         }
       }
         }
