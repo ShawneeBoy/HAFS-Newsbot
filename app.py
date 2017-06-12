@@ -9,6 +9,7 @@ import urllib2
 import urllib
 from flask import Flask, request
 
+app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
