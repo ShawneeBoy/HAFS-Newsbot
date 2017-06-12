@@ -79,6 +79,21 @@ def processMessage(message_text, sender_id):
     elif message_text.lower() == "national geographic":
     	send_message(sender_id, "Giving you the latest news from " + message_text + "!")
     	send_news_message(sender_id,"natgeo")
+    elif message_text.lower() == "bbc":
+    	send_message(sender_id, "Giving you the latest news from " + message_text + "!")
+    	send_news_message(sender_id,"bbc")
+    elif message_text.lower() == "reddit":
+    	send_message(sender_id, "Giving you the latest news from " + message_text + "!")
+    	send_news_message(sender_id,"reddit")
+    elif message_text.lower() == "buzzfeed":
+    	send_message(sender_id, "Giving you the latest news from " + message_text + "!")
+    	send_news_message(sender_id,"buzzfeed")
+    elif message_text.lower() == "ign":
+    	send_message(sender_id, "Giving you the latest news from " + message_text + "!")
+    	send_news_message(sender_id,"ign")
+    elif message_text.lower() == "the economist":
+    	send_message(sender_id, "Giving you the latest news from " + message_text + "!")
+    	send_news_message(sender_id,"econ")
     elif message_text.lower() == "help":
     	send_message(sender_id, "Commands\n\n\tnews - Shows major news sites.\n\nMore commands to be added!")
     else:
@@ -191,6 +206,36 @@ def send_quick_reply(recipient_id):
           		"title":"National Geographic",
           		"payload":"choice_natgeo",
           		"image_url":"http://images.nationalgeographic.com/wpf/sites/common/i/presentation/NGLogo560x430-cb1343821768.png"
+        	},
+        	{
+          		"content_type":"text",
+          		"title":"BBC",
+          		"payload":"choice_bbc",
+          		"image_url":"http://m.files.bbci.co.uk/modules/bbc-morph-news-waf-page-meta/1.2.0/apple-touch-icon.png"
+        	},
+        	{
+          		"content_type":"text",
+          		"title":"Reddit",
+          		"payload":"choice_reddit",
+          		"image_url":"https://www.redditstatic.com/mweb2x/favicon/120x120.png"
+        	},
+        	{
+          		"content_type":"text",
+          		"title":"Buzzfeed",
+          		"payload":"choice_buzzfeed",
+          		"image_url":"https://www.buzzfeed.com/static-assets/img/touch-icon-ios_120.208a0e329cd6e8d831b21ae17fb6aabb.png"
+        	},
+        	{
+          		"content_type":"text",
+          		"title":"IGN",
+          		"payload":"choice_ign",
+          		"image_url":"http://m.ign.com/apple-touch-icon-precomposed.png"
+        	},
+        	{
+          		"content_type":"text",
+          		"title":"The Economist",
+          		"payload":"choice_econ",
+          		"image_url":"https://lh3.googleusercontent.com/j0rfLNcDw7hmSdKKXH88JA6tG6WKANNPIg1_9prDyLL2nLEUESd47CfTmyH1JLpTxxoD=w300"
         	}
       		]
         }
@@ -214,6 +259,16 @@ def send_news_message(recipient_id, newsType):
     	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=time&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
     elif newsType == "natgeo":
     	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=national-geographic&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+    elif newsType == "bbc":
+    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=bbc&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+    elif newsType == "reddit":
+    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=reddit-r-all&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+    elif newsType == "buzzfeed":
+    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=buzzfeed&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+    elif newsType == "ign":
+    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=ign&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+    elif newsType == "econ":
+    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-economist&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
     else: 
     	return False;
     
