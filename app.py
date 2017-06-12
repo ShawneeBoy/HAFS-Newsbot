@@ -101,7 +101,7 @@ def chooseGreeting(message):
 def send_news_message(recipient_id):
 	send_message(recipient_id, "As of now, Newsbot only supports CNN. More sites coming soon!")
 	send_CNN_message(recipient_id)
-	
+
 
 def send_message(recipient_id, message_text):
 
@@ -167,7 +167,7 @@ def send_CNN_message(recipient_id):
               "title": "Read more"
             }],
           }]
-          "title": cnn_data["articles"][2]["title"],
+          	"title": cnn_data["articles"][2]["title"],
             "subtitle": cnn_data["articles"][2]["description"],
             "item_url": cnn_data["articles"][2]["url"],     
             "image_url": cnn_data["articles"][2]["urlToImage"],
