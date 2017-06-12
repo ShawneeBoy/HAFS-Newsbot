@@ -187,64 +187,6 @@ def send_CNN_message(recipient_id):
         log(r.status_code)
         log(r.text)
 
-def send_CNN_message(recipient_id):
-
-    log("sending CNN message to {recipient}".format(recipient=recipient_id))
-    response = urllib2.urlopen('https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
-    cnn_data = json.load(response)
-    params = {
-        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = json.dumps({
-        "recipient": {
-            "id": recipient_id
-        },
-        "message": {
-            "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": cnn_data["articles"][0]["title"],
-            "subtitle": cnn_data["articles"][0]["description"],
-            "item_url": cnn_data["articles"][0]["url"],     
-            "image_url": cnn_data["articles"][0]["urlToImage"],
-            "buttons": [{
-              "type": "web_url",
-              "url": cnn_data["articles"][0]["url"],
-              "title": "Read more"
-            }],
-          },{
-            "title": cnn_data["articles"][1]["title"],
-            "subtitle": cnn_data["articles"][1]["description"],
-            "item_url": cnn_data["articles"][1]["url"],     
-            "image_url": cnn_data["articles"][1]["urlToImage"],
-            "buttons": [{
-              "type": "web_url",
-              "url": cnn_data["articles"][1]["url"],
-              "title": "Read more"
-            }],
-          }]
-          "title": cnn_data["articles"][2]["title"],
-            "subtitle": cnn_data["articles"][2]["description"],
-            "item_url": cnn_data["articles"][2]["url"],     
-            "image_url": cnn_data["articles"][2]["urlToImage"],
-            "buttons": [{
-              "type": "web_url",
-              "url": cnn_data["articles"][2]["url"],
-              "title": "Read more"
-            }],
-        }
-      }
-        }
-    })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
-    if r.status_code != 200:
-        log(r.status_code)
-        log(r.text)
 
 
 def log(message):  # simple wrapper for logging to stdout on heroku
