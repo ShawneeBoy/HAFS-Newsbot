@@ -5,10 +5,10 @@ import json
 import random
 import string
 import requests
-import urllib
+import urllib2
 from flask import Flask, request
 
-with urllib.request.urlopen("https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae") as url:
+with urllib2.urlopen("https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae") as url:
     cnn_data = json.loads(url.read().decode())
 
 
