@@ -166,7 +166,7 @@ def send_CNN_message(recipient_id):
               "url": cnn_data["articles"][1]["url"],
               "title": "Read more"
             }],
-          }]
+          },{
           	"title": cnn_data["articles"][2]["title"],
             "subtitle": cnn_data["articles"][2]["description"],
             "item_url": cnn_data["articles"][2]["url"],     
@@ -176,6 +176,8 @@ def send_CNN_message(recipient_id):
               "url": cnn_data["articles"][2]["url"],
               "title": "Read more"
             }],
+       	  }]
+          	
         }
       }
         }
