@@ -142,10 +142,10 @@ def send_news_message(recipient_id):
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": cnn_data.articles[0].title,
-            "subtitle": cnn_data.articles[0].description,
-            "item_url": cnn_data.articles[0].url,           
-            "image_url": cnn_data.articles[0].urlToImage,
+            "title": cnn_data["articles"][0]["title"],
+            "subtitle": cnn_data["articles"][0]["description"],
+            "item_url": cnn_data["articles"][0]["url"],     
+            "image_url": cnn_data["articles"][0]["urlToImage"],
             "buttons": [{
               "type": "web_url",
               "url": "https://cnn.com",
