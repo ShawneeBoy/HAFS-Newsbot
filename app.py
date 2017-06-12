@@ -123,10 +123,8 @@ def send_message(recipient_id, message_text):
 def send_news_message(recipient_id):
 
     log("sending news message to {recipient}".format(recipient=recipient_id))
-
     response = urllib2.urlopen('https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
-	cnn_data = json.load(response)
-	
+    cnn_data = json.load(response)
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
     }
