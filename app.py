@@ -130,19 +130,19 @@ def send_news_message(recipient_id):
             "id": recipient_id
         },
         "message": {
-            attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: "CNN",
-            subtitle: "Today's news",
-            item_url: "https://cnn.com",               
-            image_url: "http://i.cdn.cnn.com/cnn/.e/img/3.0/global/misc/cnn-logo.png",
-            buttons: [{
-              type: "web_url",
-              url: "https://cnn.com",
-              title: "Open CNN"
+            "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "CNN",
+            "subtitle": "Today's news",
+            "item_url": "https://cnn.com",               
+            "image_url": "http://i.cdn.cnn.com/cnn/.e/img/3.0/global/misc/cnn-logo.png",
+            "buttons": [{
+              "type": "web_url",
+              "url": "https://cnn.com",
+              "title": "Open CNN"
             }],
           }]
         }
