@@ -46,7 +46,7 @@ def webhook():
                     	if message_text.lower() == "news":
                     		send_news_message(sender_id)
                     	elif message_text.lower() == "help":
-                    		send_message(sender_id, "Commands\n\nnews - show major news sites.\n\nMore commands to be added!")
+                    		send_message(sender_id, "Commands\n\n\tnews - Shows major news sites.\n\nMore commands to be added!")
                     	else:
                     		response = chooseMessage(message_text)
                     		send_message(sender_id, response)
