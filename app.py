@@ -1,3 +1,4 @@
+
 import os
 import sys
 import json
@@ -136,13 +137,23 @@ def send_news_message(recipient_id):
           "template_type": "generic",
           "elements": [{
             "title": "CNN",
-            "subtitle": "Today's news",
+            "subtitle": "Today's international news",
             "item_url": "https://cnn.com",               
             "image_url": "http://i.cdn.cnn.com/cnn/.e/img/3.0/global/misc/cnn-logo.png",
             "buttons": [{
               "type": "web_url",
               "url": "https://cnn.com",
               "title": "Open CNN"
+            }],
+          },{
+            "title": "Joongang News",
+            "subtitle": "Today's Korea news",
+            "item_url": "http://joongang.joins.com/",               
+            "image_url": "http://images.joins.com/facebook/v_logo_j_300300.png",
+            "buttons": [{
+              "type": "web_url",
+              "url": "https://joongang.joins.com/",
+              "title": "Open Joongang News"
             }],
           }]
         }
