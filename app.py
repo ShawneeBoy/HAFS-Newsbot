@@ -147,19 +147,19 @@ def send_quick_reply(recipient_id):
         	{
           		"content_type":"text",
           		"title":"CNN",
-          		"payload":"choice_cnn"
+          		"payload":"choice_cnn",
           		"image_url":"http://petersfantastichats.com/img/red.png"
         	},
         	{
           		"content_type":"text",
           		"title":"The New York Times",
-          		"payload":"choice_nyt"
+          		"payload":"choice_nyt",
           		"image_url":"http://petersfantastichats.com/img/red.png"
         	},
         	{
           		"content_type":"text",
           		"title":"ESPN",
-          		"payload":"choice_espn"
+          		"payload":"choice_espn",
           		"image_url":"http://petersfantastichats.com/img/red.png"
         	}
       		]
