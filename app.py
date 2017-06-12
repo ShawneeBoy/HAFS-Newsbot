@@ -62,14 +62,14 @@ def webhook():
     return "ok", 200
 
 def processMessage(message_text, sender_id):
-	if message_text.lower() == "news":
-		send_quick_reply(sender_id)
+    if message_text.lower() == "news":
+	send_quick_reply(sender_id)
     elif message_text.lower() == "cnn":
     	send_news_message(sender_id,"cnn")
-	elif message_text.lower() == "the new york times":
-		send_news_message(sender_id,"nyt")
-	elif message_text.lower() == "espn":
-		send_news_message(sender_id,"espn")
+    elif message_text.lower() == "the new york times":
+	send_news_message(sender_id,"nyt")
+    elif message_text.lower() == "espn":
+	send_news_message(sender_id,"espn")
     elif message_text.lower() == "time":
     	send_news_message(sender_id,"time")
     elif message_text.lower() == "national geographic":
@@ -85,16 +85,16 @@ def processMessage(message_text, sender_id):
 
 def replySticker(sender_id,stickerid):
 	if stickerid == 369239263222822 or stickerid == 369239383222810 or stickerid == 369239343222814:
-		send_message(sender_id, random.choice(["Thanks for the like!","I like you too!","I like that like!"]))
+	    send_message(sender_id, random.choice(["Thanks for the like!","I like you too!","I like that like!"]))
 	else:
-		send_message(sender_id, random.choice(["You're a good sticker picker!","Nice sticker!","Stickers and stones may break my bones..."]))
+	    send_message(sender_id, random.choice(["You're a good sticker picker!","Nice sticker!","Stickers and stones may break my bones..."]))
 
 def defaultMessage(message):
 
 	if chooseGreeting(message):
-		return chooseGreeting(message)
+	    return chooseGreeting(message)
 	if message.lower() == "who are you?" or message.lower() == "who are you":
-		return "I am HAFS Newsbot, coded by Shawn Lee. I am designed to provide you with news."
+	    return "I am HAFS Newsbot, coded by Shawn Lee. I am designed to provide you with news."
 
 	for word in message.lower().split():
 		if word in ["fuck", "shit", "fucking"]:
@@ -205,7 +205,7 @@ def send_news_message(recipient_id, newsType):
     	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-new-york-times&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
     elif newsType == "espn":
     	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=espn&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
-   	elif newsType == "time":
+    elif newsType == "time":
     	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=time&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
     elif newsType == "natgeo":
     	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=national-geographic&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
