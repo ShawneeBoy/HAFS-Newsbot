@@ -44,14 +44,7 @@ def webhook():
 
                     if "text" in messaging_event["message"]:			# if the message contains text
                     	message_text = messaging_event["message"]["text"]  # the message's text
-                    	if message_text.lower() == "news":
-                    		send_quick_reply(sender_id)
-                    	elif message_text.lower() == "help":
-                    		send_message(sender_id, "Commands\n\n\tnews - Shows major news sites.\n\nMore commands to be added!")
-                    	else:
-                    		response = chooseMessage(message_text)
-                    		send_message(sender_id, response)
-                    		send_message(sender_id, "Type \"help\" for help on commands!")
+                    	processMessage(message_text, sender_id)
                     	
                     if "sticker_id" in messaging_event["message"]:		#if the message contains a sticker
                     	stickerid = messaging_event["message"]["sticker_id"]
@@ -68,13 +61,35 @@ def webhook():
 
     return "ok", 200
 
+def processMessage(message_text, sender_id):
+	if message_text.lower() == "news":
+        send_quick_reply(sender_id)
+    elif message_text.lower() == "cnn":
+    	send_news_message(sender_id,"cnn")
+	elif message_text.lower() == "the new york times":
+    	send_news_message(sender_id,"nyt")
+	elif message_text.lower() == "espn":
+    	send_news_message(sender_id,"espn")
+    elif message_text.lower() == "time":
+    	send_news_message(sender_id,"time")
+    elif message_text.lower() == "national geographic":
+    	send_news_message(sender_id,"natgeo")
+    elif message_text.lower() == "help":
+        send_message(sender_id, "Commands\n\n\tnews - Shows major news sites.\n\nMore commands to be added!")
+    else:
+        response = defaultMessage(message_text)
+        send_message(sender_id, response)
+        send_message(sender_id, "Type \"help\" for help on commands!")
+
+
+
 def replySticker(sender_id,stickerid):
 	if stickerid == 369239263222822 or stickerid == 369239383222810 or stickerid == 369239343222814:
 		send_message(sender_id, random.choice(["Thanks for the like!","I like you too!","I like that like!"]))
 	else:
 		send_message(sender_id, random.choice(["You're a good sticker picker!","Nice sticker!","Stickers and stones may break my bones..."]))
 
-def chooseMessage(message):
+def defaultMessage(message):
 
 	if chooseGreeting(message):
 		return chooseGreeting(message)
@@ -99,8 +114,6 @@ def chooseGreeting(message):
 
 	return False
 
-def send_news_message(recipient_id):
-	send_quick_reply(recipient_id)
 
 
 def send_message(recipient_id, message_text):
@@ -161,6 +174,18 @@ def send_quick_reply(recipient_id):
           		"title":"ESPN",
           		"payload":"choice_espn",
           		"image_url":"http://petersfantastichats.com/img/red.png"
+        	},
+        	{
+          		"content_type":"text",
+          		"title":"Time",
+          		"payload":"choice_time",
+          		"image_url":"http://petersfantastichats.com/img/red.png"
+        	},
+        	{
+          		"content_type":"text",
+          		"title":"National Geographic",
+          		"payload":"choice_natgeo",
+          		"image_url":"http://petersfantastichats.com/img/red.png"
         	}
       		]
         }
@@ -170,10 +195,22 @@ def send_quick_reply(recipient_id):
         log(r.status_code)
         log(r.text)
 
-def send_newsblock_message(recipient_id, newsType):
+def send_news_message(recipient_id, newsType):
 
     log("sending news message to {recipient}".format(recipient=recipient_id))
-    response = urllib2.urlopen('https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+
+    if newsType == "cnn":
+    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+    elif newsType == "nyt":
+    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-new-york-times&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+    elif newsType == "espn":
+    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=espn&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+   	elif newsType == "time":
+    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=time&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+    elif newsType == "natgeo":
+    	response = urllib2.urlopen('https://newsapi.org/v1/articles?source=national-geographic&sortBy=top&apiKey=09fb3aeaa2a742fcb02dedb105bad7ae')
+    else: 
+    	return False;
     
     data = json.load(response)
     params = {
@@ -218,7 +255,27 @@ def send_newsblock_message(recipient_id, newsType):
             "image_url": data["articles"][2]["urlToImage"],
             "buttons": [{
               "type": "web_url",
-              "url": cnn_data["articles"][2]["url"],
+              "url": data["articles"][2]["url"],
+              "title": "Read more"
+            }],
+       	  },{
+          	"title": data["articles"][3]["title"],
+            "subtitle": data["articles"][3]["description"],
+            "item_url": data["articles"][3]["url"],     
+            "image_url": data["articles"][3]["urlToImage"],
+            "buttons": [{
+              "type": "web_url",
+              "url": data["articles"][3]["url"],
+              "title": "Read more"
+            }],
+       	  },{
+          	"title": data["articles"][4]["title"],
+            "subtitle": data["articles"][4]["description"],
+            "item_url": data["articles"][4]["url"],     
+            "image_url": data["articles"][4]["urlToImage"],
+            "buttons": [{
+              "type": "web_url",
+              "url": data["articles"][4]["url"],
               "title": "Read more"
             }],
        	  }]
