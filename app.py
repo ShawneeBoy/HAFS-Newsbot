@@ -42,9 +42,13 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     if "text" in messaging_event["message"]:			# if the message contains text
                     	message_text = messaging_event["message"]["text"]  # the message's text
-                    	response = chooseMessage(message_text)
-                    	send_message(sender_id, response)
-                    if "sticker_id" in messaging_event["message"]:		#if the message contails a sticker
+                    	if message_text == "cnn":
+                    		send_news_message(sender_id)
+                    	else:
+                    		response = chooseMessage(message_text)
+                    		send_message(sender_id, response)
+                    	
+                    if "sticker_id" in messaging_event["message"]:		#if the message contains a sticker
                     	stickerid = messaging_event["message"]["sticker_id"]
                     	if stickerid == 369239263222822 or stickerid == 369239383222810 or stickerid == 369239343222814:
                     		send_message(sender_id, random.choice(["Thanks for the like!","I like you too!","I like that like!"]))
@@ -104,6 +108,45 @@ def send_message(recipient_id, message_text):
         },
         "message": {
             "text": message_text
+        }
+    })
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
+
+def send_news_message(recipient_id):
+
+    log("sending news message to {recipient}".format(recipient=recipient_id))
+
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": recipient_id
+        },
+        "message": {
+            attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "CNN",
+            subtitle: "Today's news",
+            item_url: "https://cnn.com",               
+            image_url: "http://i.cdn.cnn.com/cnn/.e/img/3.0/global/misc/cnn-logo.png",
+            buttons: [{
+              type: "web_url",
+              url: "https://cnn.com",
+              title: "Open CNN"
+            }],
+          }]
+        }
+      }
         }
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
