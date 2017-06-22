@@ -61,6 +61,9 @@ def webhook():
 
     return "ok", 200
 
+
+
+
 def processMessage(message_text, sender_id):
     if message_text.lower() == "news":
 	send_quick_reply(sender_id)
@@ -99,7 +102,9 @@ def processMessage(message_text, sender_id):
     else:
     	response = defaultMessage(message_text)
     	send_message(sender_id, response)
-    	send_message(sender_id, "Type \"help\" for help on commands!")
+    	
+
+
 
 
 
@@ -108,6 +113,9 @@ def replySticker(sender_id,stickerid):
 	    send_message(sender_id, random.choice(["Thanks for the like!","I like you too!","I like that like!"]))
 	else:
 	    send_message(sender_id, random.choice(["You're a good sticker picker!","Nice sticker!","Stickers and stones may break my bones..."]))
+
+
+
 
 def defaultMessage(message):
 
@@ -118,9 +126,14 @@ def defaultMessage(message):
 
 	for word in message.lower().split():
 		if word in ["fuck", "shit", "fucking"]:
-			return random.choice(["Hey! Don't swear!", "You know, it isn't okay to swear..."])
+			return random.choice(["Hey! Don't swear!", "You know, it isn't okay tho swear..."])
 	
-	return random.choice(["I don't understand what you're saying.","Huh?","What do you mean?", "I can't understand much as of now. Try saying hi!"])
+	return random.choice(["I don't understand what you're saying.","Huh?","What do you mean?", "I can't understand much as of now. Try saying hi!"]) + "\nType \"help\" for help on commands!"
+
+
+
+
+
 
 def chooseGreeting(message):
 	GREETINGS_KEYWORDS = ["hello","hi","hey","sup","whats up","good morning","yo", "hi!","hai"]
@@ -128,11 +141,15 @@ def chooseGreeting(message):
 
 	for word in message.lower().split():
 		if word in GREETINGS_KEYWORDS:
+
 			return random.choice(GREETINGS_RESPONSES)
 	if message.lower() == "how are you?" or message.lower() == "how are you":
 		return "I'm doing fine, thank you!"
 
 	return False
+
+
+
 
 
 
@@ -159,6 +176,10 @@ def send_message(recipient_id, message_text):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+
+
+
+
 
 def send_quick_reply(recipient_id):
 
@@ -244,6 +265,10 @@ def send_quick_reply(recipient_id):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+
+
+
+
 
 def send_news_message(recipient_id, newsType):
 
