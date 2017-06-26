@@ -111,8 +111,8 @@ def processMessage(message_text, sender_id):
     elif message_text.lower() == "help":
     	send_message(sender_id, "Type \"news\" for major news sites! \nMore functionality is to be added, including support for Korean and Korean news.")
     else:
-    	response = defaultMessage(message_text)
-    	send_message(sender_id, response)
+    	defaultMessage(sender_id, message_text)
+    	
     	
 
 
@@ -128,19 +128,23 @@ def replySticker(sender_id,stickerid):
 
 
 
-def defaultMessage(message):
+def defaultMessage(sender_id, message):
 
 	if chooseGreeting(message):
-	    return chooseGreeting(message)
+	    send_message(sender_id, chooseGreeting(message))
+	    return True
 	if message.lower() == "who are you?" or message.lower() == "who are you":
-	    return "I am HAFS Newsbot, coded by Shawn Lee. I am designed to provide you with news."
+	    send_message(sender_id, "I am HAFS Newsbot, coded by Shawn Lee. I am designed to provide you with news.")
+	    return True
 
 	for word in message.lower().split():
 		if word in ["fuck", "shit", "fucking"]:
-			return random.choice(["Hey! Don't swear!", "You know, it isn't okay tho swear..."])
+			send_message(sender_id, random.choice(["Hey! Don't swear!", "You know, it isn't okay to swear..."])) 
+			return True
 	
-	return random.choice(["I don't understand what you're saying.","Huh?","What do you mean?", "I can't understand much as of now. Try saying hi!"]) + "\nType \"help\" for help on commands!"
-
+	send_message(sender_id,random.choice(["I don't understand what you're saying.","Huh?","What do you mean?", "I can't understand much as of now. Try saying hi!"]))
+	send_default_quick_reply(sender_id)
+	return True
 
 
 
@@ -189,7 +193,45 @@ def send_message(recipient_id, message_text):
         log(r.text)
 
 
+def send_default_quick_reply(recipient_id):
 
+    log("sending quick replies to {recipient}".format(recipient=recipient_id))
+
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": recipient_id
+        },
+        "message": {
+            "text": "What do you want to do?",
+      		"quick_replies" : [
+        	{
+          		"content_type":"text",
+          		"title":"News",
+          		"payload":"choice_news",
+        	},
+        	{
+          		"content_type":"text",
+          		"title":"Who are you?",
+          		"payload":"choice_whoareyou",
+        	},
+        	{
+          		"content_type":"text",
+          		"title":"Help",
+          		"payload":"choice_help",
+        	}
+      		]
+        }
+    })
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
 
 
 def send_quick_reply(recipient_id):
