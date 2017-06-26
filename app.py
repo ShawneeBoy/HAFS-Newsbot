@@ -62,6 +62,9 @@ def webhook():
 
                 if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
                 	message_payload = messaging_event["postback"]["payload"]
+                	sender_id = messaging_event["sender"]["id"]
+                	recipient_id = messaging_event["recipient"]["id"]
+
                 	if message_payload == "GET_STARTED":
                 		send_message(sender_id, "Hello! I am Newsbot, designed to provide you with the latest news from a variety of news sources.")
                 		send_message(sender_id, "Type \"news\" to get a list of news sites you can choose from!")
