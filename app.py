@@ -102,8 +102,6 @@ def processMessage(message_text, sender_id):
     else:
     	response = defaultMessage(message_text)
     	send_message(sender_id, response)
-    	send_default_quick_reply(sender_id)
-
     	
 
 
@@ -180,48 +178,7 @@ def send_message(recipient_id, message_text):
         log(r.text)
 
 
-def send_default_quick_reply(recipient_id):
 
-    log("sending quick replies to {recipient}".format(recipient=recipient_id))
-
-    params = {
-        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = json.dumps({
-        "recipient": {
-            "id": recipient_id
-        },
-        "message": {
-            "text": "What do you want to do?",
-      		"quick_replies" : [
-        	{
-          		"content_type":"text",
-          		"title":"News",
-          		"payload":"choice_news",
-          		"image_url":"http://i.cdn.cnn.com/cnn/.e/img/3.0/global/misc/apple-touch-icon.png"
-        	},
-        	{
-          		"content_type":"text",
-          		"title":"Subscribe",
-          		"payload":"choice_subscribe",
-          		"image_url":"https://mobile.nytimes.com/vi-assets/apple-touch-icon-319373aaf4524d94d38aa599c56b8655.png"
-        	},
-        	{
-          		"content_type":"text",
-          		"title":"Who are you?",
-          		"payload":"choice_espn",
-          		"image_url":"http://a.espncdn.com/wireless/mw5/r1/images/bookmark-icons/espn_icon-152x152.min.png"
-        	}
-      		]
-        }
-    })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
-    if r.status_code != 200:
-        log(r.status_code)
-        log(r.text)
 
 
 def send_quick_reply(recipient_id):
