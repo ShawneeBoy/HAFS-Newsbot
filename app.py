@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 
 import os
 import sys
@@ -8,6 +9,9 @@ import requests
 import urllib2
 import urllib
 from flask import Flask, request
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
 
@@ -57,7 +61,11 @@ def webhook():
                     pass
 
                 if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
-                    pass
+                	message_payload = messaging_event["postback"]["payload"]
+                	if message_payload == "GET_STARTED":
+                		send_message(sender_id, "Hello! I am Newsbot, designed to provide you with the latest news from a variety of news sources.")
+                		send_message(sender_id, "Type \"news\" to get a list of news sites you can choose from!")
+                    
 
     return "ok", 200
 
@@ -98,7 +106,7 @@ def processMessage(message_text, sender_id):
     	send_message(sender_id, "Giving you the latest news from " + message_text + "!")
     	send_news_message(sender_id,"econ")
     elif message_text.lower() == "help":
-    	send_message(sender_id, "Commands\n\n\tnews - Shows major news sites.\n\nMore commands to be added!")
+    	send_message(sender_id, "Type \"news\" for major news sites! \nMore functionality is to be added, including support for Korean and Korean news.")
     else:
     	response = defaultMessage(message_text)
     	send_message(sender_id, response)
