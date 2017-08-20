@@ -80,8 +80,6 @@ def webhook():
 def processMessage(message_text, sender_id):
     if message_text.lower() == "news":
 	send_quick_reply(sender_id)
-    elif message_text.lower() == "subscribe":
-	subscribe(sender_id)
 
     elif message_text.lower() == "cnn":
     	send_message(sender_id, "Giving you the latest news from " + message_text + "!")
