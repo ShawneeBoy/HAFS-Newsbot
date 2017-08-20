@@ -8,6 +8,8 @@ import string
 import requests
 import urllib2
 import urllib
+import itertools
+import time
 from flask import Flask, request
 
 reload(sys)
@@ -78,6 +80,9 @@ def webhook():
 def processMessage(message_text, sender_id):
     if message_text.lower() == "news":
 	send_quick_reply(sender_id)
+    elif message_text.lower() == "subscribe":
+	subscribe(sender_id)
+
     elif message_text.lower() == "cnn":
     	send_message(sender_id, "Giving you the latest news from " + message_text + "!")
     	send_news_message(sender_id,"cnn")
@@ -112,9 +117,6 @@ def processMessage(message_text, sender_id):
     	send_message(sender_id, "Type \"news\" for major news sites! \nMore functionality is to be added, including support for Korean and Korean news.")
     else:
     	defaultMessage(sender_id, message_text)
-    	
-    	
-
 
 
 
@@ -232,6 +234,7 @@ def send_default_quick_reply(recipient_id):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+
 
 
 def send_quick_reply(recipient_id):
@@ -476,6 +479,7 @@ def send_news_message(recipient_id, newsType):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+	
 
 
 
